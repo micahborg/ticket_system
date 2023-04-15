@@ -1,10 +1,9 @@
 from xrpl.transaction import safe_sign_and_autofill_transaction, send_reliable_submission
 from xrpl.models.transactions.nftoken_mint import NFTokenMint, NFTokenMintFlag
-from xrpl.wallet import generate_faucet_wallet
 from xrpl.models.requests import AccountNFTs
+import xrpl.wallet
 
 from xrpl.clients import JsonRpcClient # Define the network client
-import xrpl.wallet # Fetch Wallet
 
 JSON_RPC_URL = "https://s.altnet.rippletest.net:51234/"
 client = JsonRpcClient(JSON_RPC_URL)
