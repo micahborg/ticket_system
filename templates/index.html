@@ -1,31 +1,29 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Task Master</title>
+<title>NFTickets</title>
 {% endblock %}
 
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center">Task Master</h1>
-    <img src="favicon.ico" alt="favicon" style>
+    <h1 style="text-align: center">NFTickets</h1>
     {% if tasks|length < 1 %}
-    
-    <h4 style="text-align: center">There are no tasks. Create one below!</h4>
+    <h4 style="text-align: center">There are no scheduled events at the moment. Fill out the form below to get your event approved!</h4>
     {% else %}
     <table>
         <tr>
-            <th>Task</th>
-            <th>Added</th>
+            <th>Events</th>
+            <th>Date</th>
             <th>Actions</th>
         </tr>
         {% for task in tasks %}
             <tr>
                 <td>{{ task.content }}</td>
-                <td>{{ task.date_created.date() }}</td>
+                <td>{{ task.date_created }}</td>
                 <td>
-                    <a href="/templates/delete/{{task.id}}">Delete</a>
+                    <a href="/delete/{{task.id}}">Delete</a>
                     <br>
-                    <a href="/templates/update/{{task.id}}">Update</a>
+                    <a href="/update/{{task.id}}">Update</a>
                 </td>
             </tr>
         {% endfor %}
@@ -34,8 +32,19 @@
 
     <div class="form">
         <form action="/" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
+            <p>Form to get your event verified:</p>
+            Event: <input type="text" name="content" id="content">
+            <br>
+            Date: <input type="text" name="date" id="date">
+            <br>
+            Number of Admissions: <input type="text" name="admissions" id="admissions">
+            <br>
+            <p>Contact Information</p> 
+            Email: <input type="text" name="admissions" id="admissions">
+            <br>
+            Phone: <input type="text" name="admissions" id="admissions">
+            <br>
+            <input type="submit" value="Submit Form">
         </form>
     </div>
 </div>
