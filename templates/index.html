@@ -1,51 +1,130 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    /* Style the header */
+    .header {
+      grid-area: header;
+      background-color: #f1f1f1;
+      padding: 30px;
+      text-align: left;
+      font-size: 35px;
+    }
+    
+    /* The grid container */
+    .grid-container {
+      display: grid;
+      grid-template-areas: 
+        'header header header header header header' 
+        'left left left left right right' 
+        'footer footer footer footer footer footer';
+      /* grid-column-gap: 10px; - if you want gap between the columns */
+    } 
+    
+    .left,
+    .right {
+      padding: 10px;
+    }
+    
+    /* Style the left column */
+    .left {
+      grid-area: left;
+    }
+    
+    
+    /* Style the right column */
+    .right {
+      grid-area: right;
+    }
+    
+    /* Style the footer */
+    .footer {
+      grid-area: footer;
+      background-color: #f1f1f1;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media (max-width: 600px) {
+      .grid-container  {
+        grid-template-areas: 
+          'header header header header header header' 
+          'left left left left left left' 
+          'middle middle middle middle middle middle' 
+          'right right right right right right' 
+          'footer footer footer footer footer footer';
+      }
+    }
+    </style>
 <title>NFTickets</title>
 {% endblock %}
 
 {% block body %}
-<div class="content">
-    <h1 style="text-align: center">NFTickets</h1>
-    {% if tasks|length < 1 %}
-    <h4 style="text-align: center">There are no scheduled events at the moment. Fill out the form below to get your event approved!</h4>
-    {% else %}
-    <table>
-        <tr>
-            <th>Events</th>
-            <th>Date</th>
-            <th>Actions</th>
-        </tr>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.content }}</td>
-                <td>{{ task.date_created }}</td>
-                <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
-                    <br>
-                    <a href="/update/{{task.id}}">Update</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
-
-    <div class="form">
-        <form action="/" method="POST">
-            <p>Form to get your event verified:</p>
-            Event: <input type="text" name="content" id="content">
-            <br>
-            Date: <input type="text" name="date" id="date">
-            <br>
-            Number of Admissions: <input type="text" name="admissions" id="admissions">
-            <br>
-            <p>Contact Information</p> 
-            Email: <input type="text" name="admissions" id="admissions">
-            <br>
-            Phone: <input type="text" name="admissions" id="admissions">
-            <br>
-            <input type="submit" value="Submit Form">
-        </form>
+<div class="grid-container">
+    <div class="header">
+      <h2>NFTickets</h2>
     </div>
-</div>
+    
+    <div class="left" style="background-color:#aaa;">
+    
+        {% if tasks|length < 1 %}
+        <h4 style="text-align: center">There are no scheduled events at the moment. Fill out the form below to get your event approved!</h4>
+        {% else %}
+        <table>
+            <tr>
+                <th>Events</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.content }}</td>
+                    <td>{{ task.date_created }}</td>
+                    <td>
+                        <a href="/delete/{{task.id}}">Delete</a>
+                        <br>
+                        <a href="/update/{{task.id}}">Update</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    
+    </div>
+    <div class="right" style="background-color:#ccc;">
+    
+        Text About Our Project
+    
+    </div>
+    
+    <div class="footer">
+    <p>Contact info etc.</p>
+        <div class="form">
+            <form action="/" method="POST">
+                <p>Form to get your event verified:</p>
+                Event: <input type="text" name="content" id="content">
+                <br>
+                Date: <input type="text" name="date" id="date">
+                <br>
+                Number of Admissions: <input type="text" name="admissions" id="admissions">
+                <br>
+                <p>Contact Information</p> 
+                Email: <input type="text" name="admissions" id="admissions">
+                <br>
+                Phone: <input type="text" name="admissions" id="admissions">
+                <br>
+                <input type="submit" value="Submit Form">
+            </form>
+        </div>    
+    </div>
+  </div>
 {% endblock %}
