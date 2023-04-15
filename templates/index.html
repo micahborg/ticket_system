@@ -79,6 +79,28 @@
         {% if tasks|length < 1 %}
         <h4 style="text-align: center">There are no scheduled events at the moment. Fill out the form below to get your event approved!</h4>
         {% else %}
+
+        
+        <table>
+            {% for task in tasks %}
+            <tr>
+                <div class="grid-container">
+                    <div class="left" style="background-color:#aaa;">
+                        <h3 style="text-align: left">{{ task.content }}</h3>
+                        <h5 style="text-align: left"> Date and Time</h5>
+                        <p style="text-align: left"> Description</p>
+                    </div>
+                    <div class="right" style="background-color:#aaa;">
+                        <a href="/delete/{{task.id}}">Delete</a>
+                        <br>
+                        <a href="/update/{{task.id}}">Update</a>
+                    </div>
+                </div>
+            </tr>
+            {% endfor %}
+        </table>    
+        
+        <!--
         <table>
             <tr>
                 <th>Events</th>
@@ -97,6 +119,7 @@
                 </tr>
             {% endfor %}
         </table>
+        -->
         {% endif %}
     
     </div>
