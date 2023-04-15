@@ -1,34 +1,11 @@
 from xrpl.transaction import safe_sign_and_autofill_transaction, send_reliable_submission
 from xrpl.models.transactions.nftoken_mint import NFTokenMint, NFTokenMintFlag
 from xrpl.models.requests import AccountNFTs
-import xrpl.wallet
 
-from xrpl.clients import JsonRpcClient # Define the network client
-
-JSON_RPC_URL = "https://s.altnet.rippletest.net:51234/"
-client = JsonRpcClient(JSON_RPC_URL)
+from account import 
 
 def main():
-    issuer_wallet = xrpl.wallet.generate_faucet_wallet(client=client)
-    issuer_address = issuer_wallet.classic_address
-
-    get_account_info(issuer_address)
-
-def get_account_info(issuer_address):
-    # Look up info about your account
-    from xrpl.models.requests.account_info import AccountInfo
-
-    acct_info = AccountInfo(
-        account=issuer_address,
-        ledger_index="validated",
-        strict=True,
-    )
-
-    response = client.request(acct_info)
-    result = response.result
-    print("response.status: ", response.status)
-    import json
-    print(json.dumps(result, indent=4, sort_keys=True)) # what do I wanna do with this?
+    pass
 
 def issue_ticket(issuer_wallet, issuer_address):
     # Construct NFTokenMint transaction to mint 1 NFT
