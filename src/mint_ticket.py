@@ -6,53 +6,53 @@ from xrpl.models.requests import AccountNFTs
 from xrpl.clients import JsonRpcClient # Define the network client
 import xrpl.wallet # Fetch Wallet
 
-
 JSON_RPC_URL = "https://s.altnet.rippletest.net:51234/"
 client = JsonRpcClient(JSON_RPC_URL)
 
-# seed = "" # NEED TO FETCH the issuer account seed here
-# generate seed from public and private keys
-# but for testing, create a NEW wallet:
-issuer_wallet = xrpl.wallet.generate_faucet_wallet(client=client)
+def main():
+    pass
 
-# Create an account str from the wallet
-issuerAddr = issuer_wallet.classic_address
+def get_wallet(seed):
+    # seed = "" # NEED TO FETCH the issuer account seed here
+    # generate seed from public and private keys
+    # but for testing, create a NEW wallet:
+    issuer_wallet = xrpl.wallet.generate_faucet_wallet(client=client)
+    return issuer_wallet
 
-# Derive an x-address from the classic address:
-# https://xrpaddress.info/
-from xrpl.core import addresscodec
-issuer_xaddress = addresscodec.classic_address_to_xaddress(issuerAddr, tag=12345, is_test_network=True)
-print("\nClassic address:\n\n", issuerAddr)
-print("X-address:\n\n", issuer_xaddress)
+def get_account_info(issuerAddr):
+    # Look up info about your account
+    from xrpl.models.requests.account_info import AccountInfo
 
-# Look up info about your account
-from xrpl.models.requests.account_info import AccountInfo
-acct_info = AccountInfo(
-    account=issuerAddr,
-    ledger_index="validated",
-    strict=True,
-)
-response = client.request(acct_info)
-result = response.result
-print("response.status: ", response.status)
-import json
-print(json.dumps(response.result, indent=4, sort_keys=True))
+    acct_info = AccountInfo(
+        account=issuerAddr,
+        ledger_index="validated",
+        strict=True,
+    )
 
-# Construct NFTokenMint transaction to mint 1 NFT
-print(f"Minting a NFT...")
-mint_tx = NFTokenMint(
-    account=issuerAddr,
-    nftoken_taxon=1,
-    flags=NFTokenMintFlag.TF_TRANSFERABLE
-)
+    response = client.request(acct_info)
+    result = response.result
+    print("response.status: ", response.status)
+    import json
+    print(json.dumps(response.result, indent=4, sort_keys=True)) # what do I wanna do with this?
 
-# Sign mint_tx using the issuer account
-mint_tx_signed = safe_sign_and_autofill_transaction(transaction=mint_tx, wallet=issuer_wallet, client=client)
-mint_tx_signed = send_reliable_submission(transaction=mint_tx_signed, client=client)
-mint_tx_result = mint_tx_signed.result
+def issue_ticket():
+    # Construct NFTokenMint transaction to mint 1 NFT
+    print(f"Minting a NFT...")
+    mint_tx = NFTokenMint(
+        account=issuerAddr,
+        nftoken_taxon=1,
+        flags=NFTokenMintFlag.TF_TRANSFERABLE
+    )
+    # Sign mint_tx using the issuer account
+    mint_tx_signed = safe_sign_and_autofill_transaction(transaction=mint_tx, wallet=issuer_wallet, client=client)
+    mint_tx_signed = send_reliable_submission(transaction=mint_tx_signed, client=client)
+    mint_tx_result = mint_tx_signed.result
 
-print(f"\n  Mint tx result: {mint_tx_result['meta']['TransactionResult']}")
-print(f"     Tx response: {mint_tx_result}")
+    print(f"\n  Mint tx result: {mint_tx_result['meta']['TransactionResult']}")
+    print(f"     Tx response: {mint_tx_result}")
+
+
+
 
 for node in mint_tx_result['meta']['AffectedNodes']:
     if "CreatedNode" in list(node.keys())[0]:
