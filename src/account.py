@@ -1,5 +1,5 @@
 """
-    An original implementation of an account class for the NFTicket project.
+    An original class implementation of a wallet account for the NFTicket project.
     Created by Micah Borghese on 4/15/2023
 """
 
