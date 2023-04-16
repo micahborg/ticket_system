@@ -5,14 +5,18 @@
     .container1 {
         height: 85px;
         position:relative;
-        border: 3px solid blue;
+        border: 3px solid red;
 
     }
 
     .container {
         height: 200px;
         position: relative;
-        border: 3px solid green;
+        border: 3px solid red;
+    }
+
+    .h1 {
+        transform: translateX(5%);
     }
 
     .center {
@@ -25,7 +29,9 @@
     }
 </style>
 <div class="container1"> 
+    <div class="h1">
         <h1>NFTix</h1>
+</div>
 </div>
 
 </head>
@@ -38,8 +44,9 @@
 
     <div class="container">
         <div class="center">
-            <button>I have a seller wallet</button>
-            <button>I need a seller wallet</button>
+            
+            <button onclick="location.href='seed.html'" style="height: 50px; width: 240px">I have a seller wallet</button>
+            <button style="height: 50px; width: 240px">I need a seller wallet</button>
             
         </div>
     </div>
