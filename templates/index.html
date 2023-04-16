@@ -21,19 +21,20 @@
         <table>
             {% for task in tasks %}
             <tr>
-                <div>
+                <div class="grid-container">
                     <div class="left" style="background-color:#aaa;">
                         <div class="container">
                             <h2 style="text-align: left">{{ task.content }}</h2>
-                            <h5 margin="10px">{{ task.date_created }} {{ task.ticket_price }}</h5>
                             <h5 margin="0px">Date: {{ task.date_created }}     ${{ task.ticket_price }} per ticket</h5>
                             <p style="text-align: left"> 
                                 {{ task.description }}
-                                <div class="right" style="background-color:#aaa;vertical-align: middle;text-align: center;align-self: center;align-content: center;">
-                                    <a href="/purchase/{{task.id}}"><button>Purchase</button></a>  
-                                </div>
                             </p>
                         </div>
+                    </div>
+                    <div class="right" style="background-color:#aaa;">
+                        <p style = "text-align: center">
+                        <a href="/purchase/{{task.id}}"><button>Purchase</button></a> 
+                        </p>
                     </div>
                 </div>
             </tr>
