@@ -11,18 +11,25 @@
       <a href="/"><button>Home</button></a>
     </div>
     <div class="left" style="background-color:#aaa;">    
-        <h1 style="text-align: center">Purchase</h1>
+        <h1 style="text-align: center">Purchase Tickets to {{ task.content }}</h1>
 
         <div class="form">
             <form action="/purchase/{{task.id}}" method="POST">
-                <input type="text" name="content" id="content" value="wallet seed here">
+                <input type="text" name="first" id="first" value="first">
+                <input type="text" name="last" id="last" value="last">
+                <input type="text" name="seed" id="seed" value="wallet seed here">
+                <input type="text" name="uniqueID" id="uniqueID" value="uniqueID">
                 <input type="submit" value="Update">
             </form>
         </div>
     </div>
     <div class="right" style="background-color:#ccc;">
     
-        Text About Our Project
+        <h2 style="text-align: left">{{ task.content }}</h2>
+        <h5 margin="10px">{{ task.date_created }} {{ task.ticket_price }}</h5>
+        <h5 margin="0px">Date: {{ task.date_created }}     ${{ task.ticket_price }} per ticket</h5>
+        <p style="text-align: left"> 
+        {{ task.description }}
     
     </div>
     
