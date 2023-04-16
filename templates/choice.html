@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+
 <head>
 <style>
     .container1 {
@@ -30,13 +30,14 @@
 </style>
 
 
-
+{% block head %}
 <div class="header">
     <h2>NFTickets</h2>
   <a href="/"><button>Home</button></a>
 </div>
-
 </head>
+{% endblock %}
+{% block body %}
 <body>
 
     <!--
@@ -55,4 +56,4 @@
 
 
 </body>
-</html>
+{% endblock %}
