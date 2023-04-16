@@ -1,1 +1,0 @@
-from mint_ticket import *
