@@ -65,7 +65,31 @@ def purchase(id):
 
     else:
         return render_template('purchase.html', task=task)
+
+
+@app.route('/choice/', methods=['GET', 'POST'])
+def choice():
     
+    return render_template('choice.html')
+
+
+@app.route('/seed/', methods=['GET', 'POST'])
+def seed():
+
+    if request.method == 'POST':
+        seed = request.form['seed']
+
+        try:
+            
+            return redirect('/create/')
+        except:
+            return 'Here There was an issue adding your task'
+
+    else:
+        return render_template('seed.html')
+    
+    
+
 @app.route('/create/', methods=['GET', 'POST'])
 def create():
 

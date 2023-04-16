@@ -5,14 +5,14 @@
     .container1 {
         height: 85px;
         position:relative;
-        border: 3px solid red;
+        border: 3px solid rgb(255, 255, 255);
 
     }
 
     .container {
         height: 200px;
         position: relative;
-        border: 3px solid red;
+        border: 3px solid rgb(255, 255, 255);
     }
 
     .h1 {
@@ -28,10 +28,12 @@
         transform: translate(-50%, -50%);
     }
 </style>
-<div class="container1"> 
-    <div class="h1">
-        <h1>NFTix</h1>
-</div>
+
+
+
+<div class="header">
+    <h2>NFTickets</h2>
+  <a href="/"><button>Home</button></a>
 </div>
 
 </head>
@@ -45,8 +47,8 @@
     <div class="container">
         <div class="center">
             
-            <button onclick="location.href='seed.html'" style="height: 50px; width: 240px">I have a seller wallet</button>
-            <button style="height: 50px; width: 240px">I need a seller wallet</button>
+            <a href="/seed/"><button style="height: 50px; width: 240px">I have a seller wallet</button></a>
+            <a href="/create/"><button style="height: 50px; width: 240px">I need a seller wallet</button></a>
             
         </div>
     </div>
