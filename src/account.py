@@ -86,17 +86,18 @@ class Seller_Account(Account):
         print(f"     Tx response: {mint_tx_result}")
         return mint_tx_result
 
-    def sell_ticket(self, price, eventID: int, uuid: str, buyer_address):
+    def sell_ticket(self, price, eventID: int, uuid: str, buyer_account: Buyer_Account):
         issue_ticket = self.issue_ticket(eventID, uuid)
 
+        
         buy_tx = NFTokenCreateOffer(
-            account=buyer_address,
+            account=buyer_account,
             owner=self.address,
-            nftoken_id=issue_ticket['nftoken_id'],
+            nftoken_id=issue_ticket['meta']['TransactionResult'],
             amount=price,
         )
 
-        buy_tx_signed = safe_sign_and_autofill_transaction(transaction=buy_tx, wallet=buyer_address.wallet, client=self.client)
+        buy_tx_signed = safe_sign_and_autofill_transaction(transaction=buy_tx, wallet=Wallet(buyer_account.seed, sequence=1), client=self.client)
         buy_tx_signed = send_reliable_submission(transaction=buy_tx_signed, client=self.client)
         buy_tx_result = buy_tx_signed.result
         return buy_tx_result
