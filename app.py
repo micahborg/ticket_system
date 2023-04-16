@@ -6,10 +6,12 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 
-class Todo(db.Model):
+class EventClass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(200), nullable=False)
+    ticket_price = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
         return '<Task %r>' % self.id
@@ -21,7 +23,9 @@ def index():
         task_content = request.form['content']
         task_date = request.form['date']
         task_description = request.form['description']
-        new_task = Todo(content=task_content, date_created=task_date)
+        task_ticket_price = request.form['price']
+
+        new_task = EventClass(content=task_content, date_created=task_date, description=task_description, ticket_price=task_ticket_price)
 
         try:
             db.session.add(new_task)
@@ -31,13 +35,13 @@ def index():
             return 'There was an issue adding your task'
 
     else:
-        tasks = Todo.query.order_by(Todo.date_created).all()
+        tasks = EventClass.query.order_by(EventClass.date_created).all()
         return render_template('index.html', tasks=tasks)
 
 
 @app.route('/delete/<int:id>')
 def delete(id):
-    task_to_delete = Todo.query.get_or_404(id)
+    task_to_delete = EventClass.query.get_or_404(id)
 
     try:
         db.session.delete(task_to_delete)
@@ -48,7 +52,7 @@ def delete(id):
 
 @app.route('/purchase/<int:id>', methods=['GET', 'POST'])
 def purchase(id):
-    task = Todo.query.get_or_404(id)
+    task = EventClass.query.get_or_404(id)
 
     if request.method == 'POST':
         task.content = request.form['content']
@@ -68,14 +72,17 @@ def create():
     if request.method == 'POST':
         task_content = request.form['content']
         task_date = request.form['date']
-        new_task = Todo(content=task_content, date_created=task_date)
+        task_description = request.form['description']
+        task_ticket_price = request.form['price']
+
+        new_task = EventClass(content=task_content, date_created=task_date, description=task_description, ticket_price=task_ticket_price)
 
         try:
             db.session.add(new_task)
             db.session.commit()
             return redirect('/')
         except:
-            return 'There was an issue adding your task'
+            return 'Here There was an issue adding your task'
 
     else:
         return render_template('create.html')
