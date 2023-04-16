@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task Master</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">Update Task</h1>
+    
+    <div class="form">
+        <form action="/create/" method="POST">
+            <p>Form to get your event verified:</p>
+            Event: <input type="text" name="content" id="content">
+            <br>
+            Date: <input type="text" name="date" id="date">
+            <br>
+            Number of Admissions: <input type="text" name="admissions" id="admissions">
+            <br>
+            <p>Contact Information</p> 
+            Email: <input type="text" name="admissions" id="admissions">
+            <br>
+            Phone: <input type="text" name="admissions" id="admissions">
+            <br>
+            <input type="submit" value="Submit Form">
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -60,6 +60,24 @@ def update(id):
 
     else:
         return render_template('update.html', task=task)
+    
+@app.route('/create/', methods=['GET', 'POST'])
+def create():
+
+    if request.method == 'POST':
+        task_content = request.form['content']
+        task_date = request.form['date']
+        new_task = Todo(content=task_content, date_created=task_date)
+
+        try:
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue adding your task'
+
+    else:
+        return render_template('create.html')
 
 
 if __name__ == "__main__":
