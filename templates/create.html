@@ -5,25 +5,44 @@
 {% endblock %}
 
 {% block body %}
-<div class="content">
-    <h1 style="text-align: center">Create Event</h1>
+<div class="grid-container">
+    <div class="header">
+        <h2>NFTickets</h2>
+      <a href="/"><button>Home</button></a>
+    </div>
+    <div class="left" style="background-color:#aaa;">    
+        <h1 style="text-align: center">Create Event</h1>
 
-    <div class="form">
-        <form action="/create/" method="POST">
-            <p>Form to get your event verified:</p>
-            Event: <input type="text" name="content" id="content">
-            <br>
-            Date: <input type="text" name="date" id="date">
-            <br>
-            Number of Admissions: <input type="text" name="admissions" id="admissions">
-            <br>
-            <p>Contact Information</p> 
-            Email: <input type="text" name="admissions" id="admissions">
-            <br>
-            Phone: <input type="text" name="admissions" id="admissions">
-            <br>
-            <input type="submit" value="Submit Form">
-        </form>
+        <div class="form">
+            <form action="/create/" method="POST">
+                <p>Form to get your event verified:</p>
+                Event: <input type="text" name="content" id="content">
+                <br>
+                Date: <input type="text" name="date" id="date">
+                <br>
+                Event Description: <input type="text" name="description" id="description">
+                <br>
+                Event ID: <input type="text" name="eventID" id="eventID">
+                <br>
+                Ticket Price: <input type="text" name="price" id="price">
+                <br>
+                <p>Contact Information</p> 
+                Email: <input type="text" name="admissions" id="admissions">
+                <br>
+                Phone: <input type="text" name="admissions" id="admissions">
+                <br>
+                <input type="submit" value="Submit Form">
+            </form>
+        </div>
+    </div>
+    <div class="right" style="background-color:#ccc;">
+    
+        Text About Our Project
+    
+    </div>
+    
+    <div class="footer">
+        <p>Contact info etc.</p>    
     </div>
 </div>
 {% endblock %}

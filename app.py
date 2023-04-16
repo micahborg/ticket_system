@@ -11,6 +11,7 @@ class Todo(db.Model):
     content = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.String(200), nullable=False)
 
+
     def __repr__(self):
         return '<Task %r>' % self.id
 
@@ -20,6 +21,7 @@ def index():
     if request.method == 'POST':
         task_content = request.form['content']
         task_date = request.form['date']
+        task_description = request.form['description']
         new_task = Todo(content=task_content, date_created=task_date)
 
         try:
