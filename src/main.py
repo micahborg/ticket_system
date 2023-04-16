@@ -1,8 +1,9 @@
 from account import Account
 
+seller_account = 0
+buyer_account = 0
+
 def main():
-    seller_account = seller_sign_in()
-    buyer_account = buyer_sign_in()
 
     print(f"seller_account: {seller_account.address}")
     print(f"buyer_account: {buyer_account.address}")
@@ -18,7 +19,6 @@ def seller_sign_in(seed=0):
         seller_account = Account(seed)
     else:
         seller_account = Account()
-    return seller_account
 
 def buyer_sign_in(seed=0):
     if seed != 0:
