@@ -32,9 +32,9 @@
     .grid-container {
       display: grid;
       grid-template-areas: 
-        'header header header header header header' 
-        'left left left left right right' 
-        'footer footer footer footer footer footer';
+        'header header header' 
+        'left left right' 
+        'footer footer footer';
       /* grid-column-gap: 10px; - if you want gap between the columns */
     } 
     
@@ -47,7 +47,6 @@
     .left {
       grid-area: left;
     }
-    
     
     /* Style the right column */
     .right {
@@ -82,11 +81,11 @@
         grid-template-areas: 
           'header header header header header header' 
           'left left left left left left' 
-          'middle middle middle middle middle middle' 
           'right right right right right right' 
           'footer footer footer footer footer footer';
       }
     }
+    
     </style>
 <title>NFTickets</title>
 {% endblock %}
@@ -95,7 +94,7 @@
 <div class="grid-container">
     <div class="header">
       <h2>NFTickets</h2>
-      <a href="/create/">Create Event</a>
+      <a href="/create/"><button>Create Event</button></a>
     </div>
     
     <div class="left" style="background-color:#aaa;">
@@ -110,18 +109,19 @@
             <tr>
                 <div class="grid-container">
                     <div class="left" style="background-color:#aaa;">
-                        <h2 style="text-align: left">{{ task.content }}</h2>
-                        <h5 margin="0px">Date and Time</h5>
-                        <p style="text-align: left"> 
-                            Description
-                            
+                        <div class="container">
+                            <h2 style="text-align: left">{{ task.content }}</h2>
+                            <h5 margin="0px">Date and Time</h5>
+                            <p style="text-align: left"> 
+                                Description
+                        </div>    
                         </p>
                     </div>
                     <div class="right" style="background-color:#aaa;">
                         
                         <a href="/delete/{{task.id}}" style="text-align: center">Delete</a>
                         <br>
-                        <a href="/update/{{task.id}}" style="text-align: center">Update</a>
+                        <a href="/purchase/{{task.id}}"><button>Purchase</button></a>
                             
                     </div>
                 </div>
