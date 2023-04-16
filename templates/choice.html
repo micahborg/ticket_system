@@ -21,11 +21,10 @@
 
     .center {
         margin: 0;
-        position: absolute;
+        position: relative;
         left:50%;
         top: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+        
     }
 </style>
 
@@ -33,13 +32,14 @@
 {% block head %}
 <div class="header">
     <h2>NFTickets</h2>
+    
   <a href="/"><button>Home</button></a>
 </div>
 </head>
 {% endblock %}
 {% block body %}
 <body>
-
+    <h3>Dear Verified User</h3>
     <!--
 <button class="button">I have a seller wallet</button>
 <button class="button">I need a seller wallet</button>
@@ -47,7 +47,8 @@
 
     <div class="container">
         <div class="center">
-            
+            <h5>Please choose one of the following:</h5>
+            <br>
             <a href="/seed/"><button style="height: 50px; width: 240px">I have a seller wallet</button></a>
             <a href="/create/"><button style="height: 50px; width: 240px">I need a seller wallet</button></a>
             
