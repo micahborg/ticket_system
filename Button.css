@@ -1,0 +1,10 @@
+button {
+    background-image: url('Button.png');
+    background-size: 100% 100%;
+    border: none;
+    color: white;
+    font-size: calc(0.4rm + 0.4vw);
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
