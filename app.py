@@ -1,8 +1,8 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-from src.account import Account
+from src.account import Buyer_Account, Seller_Account
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -60,8 +60,10 @@ def purchase(id):
     if request.method == 'POST':
         seed = request.form['seed']
         uniqueID = request.form['uniqueID']
-        buyer_account = Account(seed)
-        buyer_account.issue_ticket(task.eventID, uniqueID)
+        buyer_account = Buyer_Account(seed)
+        
+        #Seller_Account().sell_ticket(task.ticket_price, task.eventID, uniqueID, buyer_account)
+        flash('Ticket Purchased!', 'success')
 
         try:
             return redirect('/')
@@ -98,9 +100,9 @@ def create():
 
     try:
         seed = request.args['seed']
-        seller_account = Account(seed)
+        seller_account = Seller_Account(seed)
     except:
-        seller_account = Account()
+        seller_account = Seller_Account()
     public_key = seller_account.address
     private_key = seller_account.seed
     balance = seller_account.get_balance()
