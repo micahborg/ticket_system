@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+from src.account import Account
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
@@ -79,9 +81,10 @@ def seed():
     if request.method == 'POST':
         seed = request.form['seed']
 
+        seller_account = Account(seed)
+
         try:
-            
-            return redirect('/create/')
+            return redirect(url_for('/create/', seller_account=seller_account))
         except:
             return 'Here There was an issue adding your task'
 
@@ -93,7 +96,14 @@ def seed():
 @app.route('/create/', methods=['GET', 'POST'])
 def create():
 
+    seller_account = request.args['seller_account']
+    public_key = seller_account.address
+    private_key = seller_account.private_key
+    balance = seller_account.get_balance()
+
+    
     if request.method == 'POST':
+
         task_content = request.form['content']
         task_date = request.form['date']
         task_description = request.form['description']
