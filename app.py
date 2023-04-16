@@ -92,8 +92,6 @@ def seed():
 
     else:
         return render_template('seed.html')
-    
-    
 
 @app.route('/create/', methods=['GET', 'POST'])
 def create():
@@ -108,7 +106,6 @@ def create():
     balance = seller_account.get_balance()
 
     print(f"seller_account: {seller_account.address}")
-
 
     if request.method == 'POST':
 
