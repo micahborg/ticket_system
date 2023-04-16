@@ -18,10 +18,11 @@ class Account:
 
     def __init__(self, seed=0):
         if seed != 0:
-            self.wallet = Wallet(seed=seed)
+            self.wallet = Wallet(seed=seed, sequence=1)
         else:
             self.wallet = generate_faucet_wallet(client=self.client)
         self.address = self.wallet.classic_address
+        self.seed = self.wallet.seed
 
     def account_info(self):
         # Look up info about your account

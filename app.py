@@ -71,7 +71,7 @@ def purchase(id):
 
 @app.route('/choice/', methods=['GET', 'POST'])
 def choice():
-    
+
     return render_template('choice.html')
 
 
@@ -80,13 +80,12 @@ def seed():
 
     if request.method == 'POST':
         seed = request.form['seed']
-
-        seller_account = Account(seed)
-
-        try:
-            return redirect(url_for('/create/', seller_account=seller_account))
-        except:
-            return 'Here There was an issue adding your task'
+        
+        return redirect(url_for('create', seed=seed))
+        # try:
+        #     return redirect(url_for('/create/', seller_account=seller_account))
+        # except:
+        #     return 'Here There was an issue adding your task'
 
     else:
         return render_template('seed.html')
@@ -96,12 +95,18 @@ def seed():
 @app.route('/create/', methods=['GET', 'POST'])
 def create():
 
-    seller_account = request.args['seller_account']
+    try:
+        seed = request.args['seed']
+        seller_account = Account(seed)
+    except:
+        seller_account = Account()
     public_key = seller_account.address
-    private_key = seller_account.private_key
+    private_key = seller_account.seed
     balance = seller_account.get_balance()
 
-    
+    print(f"seller_account: {seller_account.address}")
+
+
     if request.method == 'POST':
 
         task_content = request.form['content']
@@ -119,7 +124,7 @@ def create():
             return 'Here There was an issue adding your task'
 
     else:
-        return render_template('create.html')
+        return render_template('create.html', public_key=public_key, private_key=private_key, balance=balance, seller_account=seller_account)
 
 
 if __name__ == "__main__":
