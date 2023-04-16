@@ -14,6 +14,7 @@ class EventClass(db.Model):
     date_created = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(200), nullable=False)
     ticket_price = db.Column(db.String(200), nullable=False)
+    eventID = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return '<Task %r>' % self.id
@@ -57,10 +58,12 @@ def purchase(id):
     task = EventClass.query.get_or_404(id)
 
     if request.method == 'POST':
-        task.content = request.form['content']
+        seed = request.form['seed']
+        uniqueID = request.form['uniqueID']
+        buyer_account = Account(seed)
+        buyer_account.issue_ticket(task.eventID, uniqueID)
 
         try:
-            db.session.commit()
             return redirect('/')
         except:
             return 'There was an issue updating your task'
@@ -113,8 +116,9 @@ def create():
         task_date = request.form['date']
         task_description = request.form['description']
         task_ticket_price = request.form['price']
+        task_eventID = request.form['eventID']
 
-        new_task = EventClass(content=task_content, date_created=task_date, description=task_description, ticket_price=task_ticket_price)
+        new_task = EventClass(content=task_content, date_created=task_date, description=task_description, ticket_price=task_ticket_price, eventID=task_eventID)
 
         try:
             db.session.add(new_task)
